@@ -5,7 +5,7 @@ apply plugin: 'com.jfrog.bintray'
 ext {
     PUBLISH_GROUP_ID = 'org.commcare'
     PUBLISH_ARTIFACT_ID = 'support-library'
-    PUBLISH_VERSION = '6.0'
+    PUBLISH_VERSION = '8.0'
 
     bintrayRepo = 'commcare-support-library'
     bintrayName = 'commcare-support-library'   // Has to be same as your library module name
@@ -21,7 +21,7 @@ ext {
     gitUrl = 'https://github.com/dimagi/commcare-support-library.git'
     githubRepository= 'dimagi/commcare-support-library'
 
-    libraryVersion = '6.0'
+    libraryVersion = '8.0'
 
     developerId = 'wpride'
     developerName = 'William Pride'
