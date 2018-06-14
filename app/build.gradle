@@ -1,9 +1,40 @@
-apply plugin: 'com.android.application'
+apply plugin: 'com.android.library'
+apply plugin: 'com.jfrog.bintray'
+
+
+ext {
+    PUBLISH_GROUP_ID = 'org.commcare'
+    PUBLISH_ARTIFACT_ID = 'support-library'
+    PUBLISH_VERSION = '6.0'
+
+    bintrayRepo = 'commcare-support-library'
+    bintrayName = 'commcare-support-library'   // Has to be same as your library module name
+
+    publishedGroupId = 'org.commcare'
+    libraryName = 'commcare-support-library'
+    artifact = 'commcare-support-library'     // Has to be same as your library module name
+
+    libraryDescription = 'Provides a set of utility functions for using CommCare Android mobile APIs'
+
+    // Your github repo link
+    siteUrl = 'https://github.com/dimagi/commcare-support-library'
+    gitUrl = 'https://github.com/dimagi/commcare-support-library.git'
+    githubRepository= 'dimagi/commcare-support-library'
+
+    libraryVersion = '6.0'
+
+    developerId = 'wpride'
+    developerName = 'William Pride'
+    developerEmail = 'wpride@dimagi.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "org.commcare.commcaresupportlibrary"
         minSdkVersion 19
         targetSdkVersion 26
         versionCode 1
@@ -26,3 +57,7 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
+
+apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
