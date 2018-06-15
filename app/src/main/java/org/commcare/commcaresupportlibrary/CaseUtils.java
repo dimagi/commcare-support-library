@@ -57,6 +57,14 @@ public class CaseUtils {
         return getCaseDbBaseUri(context) + "index/";
     }
 
+
+    /**
+     * Get the case name of a given case
+     *
+     * @param context Android Context
+     * @param caseId The caseId to look up
+     * @return The name of the case specified by caseId
+     */
     public static String getCaseName(Context context, String caseId) {
         Cursor cursor = getCaseMetaData(context, caseId);
         if (cursor != null) {
@@ -66,6 +74,13 @@ public class CaseUtils {
         return null;
     }
 
+    /**
+     * Get the specified property of a specified case
+     * @param context Android Context
+     * @param caseId The caseId of the case to lookup
+     * @param caseProperty The name of the case property to lookup
+     * @return The value of the case property
+     */
     public static String getCaseProperty(Context context, String caseId, String caseProperty) {
         Cursor caseDataCursor = CaseUtils.getCaseDataCursor(context, caseId);
         if (caseDataCursor == null) {
@@ -80,19 +95,13 @@ public class CaseUtils {
         return null;
     }
 
-    public static List<String> getCaseIds(Context context) {
-        ArrayList<String> accumulator = new ArrayList<>();
-        Cursor cursor = CaseUtils.getCaseMetaData(context);
-        if (cursor == null) {
-            return null;
-        }
-        while (cursor.moveToNext()) {
-            String caseId = cursor.getString(2);
-            accumulator.add(caseId);
-        }
-        return accumulator;
-    }
-
+    /**
+     * Get the specified properties of a specified case
+     * @param context Android Context
+     * @param caseId The caseId of the case to lookup
+     * @param caseProperties A list of the names of the case properties to lookup
+     * @return The value of the case property
+     */
     public static Map<String, String> getCaseProperties(Context context, String caseId, ArrayList<String> caseProperties) {
         HashMap<String, String> propertyMap = new HashMap<>();
         Cursor caseDataCursor = CaseUtils.getCaseDataCursor(context, caseId);
@@ -109,10 +118,50 @@ public class CaseUtils {
     }
 
     /**
+     * Get a list of the caseIds of all cases in the user's database
+     * @param context Android Context
+     * @return A list of the caseIds
+     */
+    public static List<String> getCaseIds(Context context) {
+        ArrayList<String> accumulator = new ArrayList<>();
+        Cursor cursor = CaseUtils.getCaseMetaData(context);
+        if (cursor == null) {
+            return null;
+        }
+        while (cursor.moveToNext()) {
+            String caseId = cursor.getString(2);
+            accumulator.add(caseId);
+        }
+        return accumulator;
+    }
+
+    /**
      * Provides a listing of all cases in the system, along with their metadata.
      * Returns all of the named attributes for a case (case_type, date_opened, etc) in columns.
 
      content://org.commcare.dalvik.case/casedb/case
+
+     Response Content
+
+     column	        required
+     case_id	    yes
+     case_type	    yes
+     owner_id	    yes
+     status	        yes
+     case_name	    yes
+     date_opened    yes
+     last_modified
+     * @param context Android Context
+     * @return A cursor over the meta data specified
+     */
+    public static Cursor getCaseMetaData(Context context) {
+        Uri tableUri = Uri.parse(getCaseDbListUri(context));
+        return context.getContentResolver().query(tableUri, null, null, null, null);
+    }
+
+    /**
+     * Returns all of the named attributes for a single case (case_type, date_opened, etc) in columns.
+
      content://org.commcare.dalvik.case/casedb/case/CASE_ID
 
      Response Content
@@ -125,17 +174,12 @@ public class CaseUtils {
      case_name	    yes
      date_opened    yes
      last_modified
-     * @param context
-     * @param caseId If specified, return only the row for the case with this ID
+     * @param context Android Context
+     * @param caseId The caseId of the case to lookup
      * @return A cursor over the meta data specified
      */
     public static Cursor getCaseMetaData(Context context, String caseId) {
         Uri tableUri = Uri.parse(getCaseDbListUri(context) + caseId);
-        return context.getContentResolver().query(tableUri, null, null, null, null);
-    }
-
-    public static Cursor getCaseMetaData(Context context) {
-        Uri tableUri = Uri.parse(getCaseDbListUri(context));
         return context.getContentResolver().query(tableUri, null, null, null, null);
     }
 
@@ -150,7 +194,8 @@ public class CaseUtils {
      case_id	yes
      datum_id	yes
      value
-     * @param context
+     * @param context Android Context
+     * @param caseId the caseId of the case to lookups
      * @return A cursor over the meta data specified
      */
     public static Cursor getCaseDataCursor(Context context, String caseId) {
@@ -170,6 +215,9 @@ public class CaseUtils {
      index_id	yes
      case_type	yes
      value	yes
+     * @param context Android Context
+     * @param caseId the caseId of the case to lookups
+     * @return A cursor over the indices of related cases
      */
     public static Cursor getCaseIndexData(Context context, String caseId) {
         Uri tableUri = Uri.parse(getCaseDbIndexUri(context) + caseId);
@@ -177,12 +225,14 @@ public class CaseUtils {
     }
 
     /**
-     * Returns all case attachments (still in flux) associated with a specific case.
+     *   Returns all case attachments (still in flux) associated with a specific case.
 
-     Note that the value returned is the full body of the attachment,
-     which means this API is only viable for communicating with attachments that
-     are not particularly large, depending on the amount of memory on the device.
-
+         Note that the value returned is the full body of the attachment,
+         which means this API is only viable for communicating with attachments that
+         are not particularly large, depending on the amount of memory on the device.
+     * @param context Android Context
+     * @param caseId the caseId of the case to lookup
+     * @return A cursor over the case attachments
      */
     public static Cursor getCaseAttachmentData(Context context, String caseId) {
         Uri tableUri = Uri.parse(getCaseDbAttachmentUri(context) + caseId);
