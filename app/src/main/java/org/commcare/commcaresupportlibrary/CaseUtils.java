@@ -183,6 +183,10 @@ public class CaseUtils {
         return context.getContentResolver().query(tableUri, null, null, null, null);
     }
 
+    public static Cursor getCaseDataCursor(Context context, String caseId) {
+        return getCaseDataCursor(context, caseId, null, null);
+    }
+
     /**
      * Returns the key/value pairs of all data for a specific case
 
@@ -196,11 +200,13 @@ public class CaseUtils {
      value
      * @param context Android Context
      * @param caseId the caseId of the case to lookups
+     * @param selection The query to perform against the case table
+     * @param selectionArgs The arguments to use in the query
      * @return A cursor over the meta data specified
      */
-    public static Cursor getCaseDataCursor(Context context, String caseId) {
+    public static Cursor getCaseDataCursor(Context context, String caseId, String selection, String[] selectionArgs) {
         Uri caseDataUri = Uri.parse(getCaseDbDataUri(context) + caseId);
-        return context.getContentResolver().query(caseDataUri, null, null, null, null);
+        return context.getContentResolver().query(caseDataUri, null, selection, selectionArgs, null);
     }
 
     /**
