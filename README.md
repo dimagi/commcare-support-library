@@ -48,10 +48,10 @@ Get a list of all the caseIds in the current user database:
 
 #### Fixtures
 
-Get a list of all fixtures in the current user database:
+Get a list of IDs of all the fixtures in the current database:
 
-`FixtureUtils.getFixtureList(Context context)`
+`FixtureUtils.getFixtureIdList(Context context)`
 
-And then get a cursor over all the data in a fixture specified by its id:
+Then retrieve the XML for a specific fixture from this list:
 
-`FixtureUtils.getFixtureData(Context context, String fixtureId)`
+`FixtureUtils.getFixtureXml(Context context, String fixtureId`
