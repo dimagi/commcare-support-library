@@ -159,6 +159,11 @@ public class CaseUtils {
         return context.getContentResolver().query(tableUri, null, null, null, null);
     }
 
+    public static Cursor getCaseMetaData(Context context, String selection, String[] selectionArgs) {
+        Uri tableUri = Uri.parse(getCaseDbListUri(context));
+        return context.getContentResolver().query(tableUri, null, selection, selectionArgs, null);
+    }
+
     /**
      * Returns all of the named attributes for a single case (case_type, date_opened, etc) in columns.
 
