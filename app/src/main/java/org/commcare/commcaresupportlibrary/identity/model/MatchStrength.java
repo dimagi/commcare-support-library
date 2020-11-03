@@ -1,14 +1,14 @@
 package org.commcare.commcaresupportlibrary.identity.model;
 
-public enum Tier {
+public enum MatchStrength {
     // Almost certain match
-    TIER_1,
+    CERTAIN,
     // Very good match
-    TIER_2,
+    VERY_GOOD,
     // Good match
-    TIER_3,
+    GOOD,
     // Okay match
-    TIER_4,
+    OKAY,
     // No match
-    TIER_5
+    NO_MATCH
 }

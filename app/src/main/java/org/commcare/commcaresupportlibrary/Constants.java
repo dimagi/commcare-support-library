@@ -13,10 +13,4 @@ public class Constants {
     public static final String FIXTURE_DB_BASE_URI = "content://" + BASE_PACKAGE_NAME + ".fixture/fixturedb/";
 
     public static final String SESSION_REQUEST_KEY = "ccodk_session_request";
-
-
-    // Identification Workflows Related Constants
-    final public static String IDENTITY_REGISTRATION = "registration";
-    final public static String IDENTITY_IDENTIFICATIONS = "identification";
-    final public static String IDENTITY_VERIFICATION = "verification";
 }
