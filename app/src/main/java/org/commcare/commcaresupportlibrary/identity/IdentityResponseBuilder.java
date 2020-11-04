@@ -25,7 +25,7 @@ public class IdentityResponseBuilder {
 
     private Intent resultIntent;
 
-    public IdentityResponseBuilder(Intent resultIntent) {
+    private IdentityResponseBuilder(Intent resultIntent) {
         this.resultIntent = resultIntent;
     }
 
