@@ -2,13 +2,13 @@ package org.commcare.commcaresupportlibrary.identity.model;
 
 public enum MatchStrength {
     // Almost certain match
-    CERTAIN,
+    FIVE_STARS,
     // Very good match
-    VERY_GOOD,
+    FOUR_STARS,
     // Good match
-    GOOD,
+    THREE_STARS,
     // Okay match
-    OKAY,
+    TWO_STARS,
     // No match
-    NO_MATCH
+    ONE_STAR
 }

@@ -64,16 +64,8 @@ public class VerificationMatch implements Parcelable {
         return matchResult;
     }
 
-    public void setMatchResult(MatchResult matchResult) {
-        this.matchResult = matchResult;
-    }
-
     @NonNull
     public String getGuid() {
         return guid;
-    }
-
-    public void setGuid(@NonNull String guid) {
-        this.guid = guid;
     }
 }

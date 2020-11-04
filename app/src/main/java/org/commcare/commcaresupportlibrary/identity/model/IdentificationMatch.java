@@ -61,16 +61,8 @@ public class IdentificationMatch implements Parcelable, Comparable<Identificatio
         return guid;
     }
 
-    public void setGuid(String guid) {
-        this.guid = guid;
-    }
-
     public MatchResult getMatchResult() {
         return matchResult;
-    }
-
-    public void setMatchResult(MatchResult matchResult) {
-        this.matchResult = matchResult;
     }
 
     @Override
