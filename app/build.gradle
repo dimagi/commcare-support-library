@@ -1,35 +1,56 @@
 apply plugin: 'com.android.library'
-apply plugin: 'com.jfrog.bintray'
+apply plugin: 'maven-publish'
 
+version '12.3'
 
 ext {
-    PUBLISH_GROUP_ID = 'org.commcare'
-    PUBLISH_ARTIFACT_ID = 'support-library'
-    PUBLISH_VERSION = '12.0'
+    BINTRAY_USERNAME = project.properties['BINTRAY_USERNAME'] ?: ""
+    BINTRAY_PASSWORD = project.properties['BINTRAY_PASSWORD'] ?: ""
+}
 
-    bintrayRepo = 'commcare-support-library'
-    bintrayName = 'commcare-support-library'   // Has to be same as your library module name
+afterEvaluate {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                from components.release
+                groupId 'org.commcare'
+                artifactId 'support-library'
+                version this.version
 
-    publishedGroupId = 'org.commcare'
-    libraryName = 'commcare-support-library'
-    artifact = 'commcare-support-library'     // Has to be same as your library module name
-
-    libraryDescription = 'Provides a set of utility functions for using CommCare Android mobile APIs'
-
-    // Your github repo link
-    siteUrl = 'https://github.com/dimagi/commcare-support-library'
-    gitUrl = 'https://github.com/dimagi/commcare-support-library.git'
-    githubRepository= 'dimagi/commcare-support-library'
-
-    libraryVersion = '12.0'
-
-    developerId = 'wpride'
-    developerName = 'William Pride'
-    developerEmail = 'wpride@dimagi.com'
-
-    licenseName = 'The Apache Software License, Version 2.0'
-    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
-    allLicenses = ["Apache-2.0"]
+                pom {
+                    name = 'CommCare Support Library'
+                    description = 'Provides a set of utility functions for using CommCare Android mobile APIs'
+                    url = 'https://github.com/dimagi/commcare-support-library'
+                    licenses {
+                        license {
+                            name = 'The Apache Software License, Version 2.0'
+                            url = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+                        }
+                    }
+                    developers {
+                        developer {
+                            id = 'shubham1g5'
+                            name = 'Shubham Goyal'
+                            email = 'sgoyal@dimagi.com'
+                        }
+                    }
+                    scm {
+                        url = 'https://github.com/dimagi/commcare-support-library.git'
+                    }
+                }
+            }
+        }
+        repositories {
+            maven {
+                credentials {
+                    username project.ext.BINTRAY_USERNAME
+                    password project.ext.BINTRAY_PASSWORD
+                }
+                name = 'dimagi-commcare-support-library'
+                url = 'https://api.bintray.com/maven/dimagi/commcare-support-library/commcare-support-library/;publish=1'
+            }
+        }
+    }
 }
 
 android {
@@ -57,7 +78,3 @@ dependencies {
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
 }
-
-apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
-apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/installv1.gradle'
-apply from: 'https://raw.githubusercontent.com/nisrulz/JCenter/master/bintrayv1.gradle'
