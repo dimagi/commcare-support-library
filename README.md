@@ -22,7 +22,7 @@ and:
 ```
 dependencies {
     ...
-    implementation 'org.commcare:support-library:8.0'
+    implementation 'org.commcare:support-library:12.3'
 }
 ```
 
